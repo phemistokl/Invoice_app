@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
+import Row  from 'react-bootstrap/lib/Row';
+import Col  from 'react-bootstrap/lib/Col';
+import Button from 'react-bootstrap/lib/Button';
+import Table from 'react-bootstrap/lib/Table';
+
+import TableGrid from './TableGrid.jsx';
 
 import { loadCustomers } from '../actions';
 
@@ -7,6 +14,7 @@ import { loadCustomers } from '../actions';
 export default class Customers extends Component {
     constructor(props) {
         super(props);
+        document.title = 'Customer list';
 
         this.state = {
             customers: []
@@ -20,14 +28,30 @@ export default class Customers extends Component {
         this.props.loadCustomers();
     }
     //
-    // componentDidUpdate() {
+    // componentDidMount() {
     //     this.props.loadCustomers();
     // }
 
-    render() {    
+    render() {
+        console.log(this.props.customers);
         return (
-            <div className="app">
-                <h2 className="app__header">Customer list</h2>
+          <div>
+            <Row className="show-grid">
+              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button>Create</Button></Col>
+            </Row>
+            <Table responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <TableGrid customers={this.props.customers} />
+              </Table>
             </div>
         );
     }

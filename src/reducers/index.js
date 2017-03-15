@@ -6,7 +6,7 @@ import {
     FETCH_CUSTOMERS_SUCCESS
 } from '../actions';
 
-const customers = ( state = { isFetching: false, notes: [] }, action) => {
+const customers = ( state = { isFetching: false, customers: [] }, action) => {
   switch (action.type) {
     case FETCH_CUSTOMERS_REQUEST:
       return {
