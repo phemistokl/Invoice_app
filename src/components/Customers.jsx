@@ -7,10 +7,11 @@ import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
 
 import TableGrid from './TableGrid.jsx';
+import Modal from './Modal.jsx';
 
-import { loadCustomers } from '../actions';
+import { loadCustomers, toggleModal } from '../actions';
 
-@connect(mapStateToProps, { loadCustomers })
+@connect(mapStateToProps, { loadCustomers, toggleModal })
 export default class Customers extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +25,10 @@ export default class Customers extends Component {
         //this.handleNoteAdd = this.handleNoteAdd.bind(this);
     }
 
+    createCustomer() {
+        this.props.toggleModal();
+    }
+
     componentWillMount() {
         this.props.loadCustomers();
     }
@@ -33,11 +38,12 @@ export default class Customers extends Component {
     // }
 
     render() {
-        console.log(this.props.customers);
+        //console.log(this.props.customers);
         return (
           <div>
+            <Modal />
             <Row className="show-grid">
-              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button>Create</Button></Col>
+              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button onClick={this.createCustomer.bind(this)}>Create</Button></Col>
             </Row>
             <Table responsive>
                 <thead>

@@ -6,14 +6,15 @@ import axios from 'axios';
         return axios.get(`api/customers`);
     }
 
-    // export function createNote(data) {
-    //     return axios.post(`${apiPrefix}/notes`, data);
-    // }
+    export function createCustomer(data) {
+        return axios.post(`api/customers`, data);
+    }
     //
     // export function deleteNote(noteId) {
     //     return axios.delete(`${apiPrefix}/notes/${noteId}`);
     // }
 
     export default {
-        listCustomers
+        listCustomers,
+        createCustomer
     };
