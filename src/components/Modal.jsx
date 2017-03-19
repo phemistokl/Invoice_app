@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import Modal from 'react-bootstrap/lib/Modal';
 
-import { createCustomer, toggleModal } from '../actions';
+import { loadCustomers, createCustomer, toggleModal } from '../actions';
 
-@connect(mapStateToModalProps, { createCustomer, toggleModal })
+@connect(mapStateToModalProps, { loadCustomers, createCustomer, toggleModal })
 export default class Modal extends Component {
     constructor(props) {
         super(props);
 
-        if (!props.modal.newEntry) {
+        if (!this.props.newEntry) {
           this.state = ({
             name: props.name,
             address: props.address,
@@ -66,7 +66,8 @@ export default class Modal extends Component {
         //   // Save a new recipe
         //   this.props.actions.saveNewRecipe(recipe);
         // }
-      //this.closeModal();
+      this.closeModal();
+      this.props.loadCustomers();
     }
 
     handleNameChange(e) {
@@ -91,7 +92,7 @@ export default class Modal extends Component {
     }
 
     render() {
-      if (!this.props.modal.isOpen) {
+      if (!this.props.isOpen) {
         this.closeModal();
       }
       return <div
@@ -177,12 +178,14 @@ export default class Modal extends Component {
 }
 
 function mapStateToModalProps(state) {
+  //console.log(state);
   return {
     id: state.customers.customers.id,
     newEntry: state.modal.newEntry,
     name: state.customers.customers.name,
     address: state.customers.customers.address,
     phone: state.customers.customers.phone,
-    modal: state.modal
+    isOpen: state.modal.isOpen,
+    newEntry: state.modal.newEntry
   };
 }

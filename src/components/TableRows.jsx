@@ -9,8 +9,7 @@ const TableRows = props => {
             <td>{props.name}</td>
             <td>{props.address}</td>
             <td>{props.phone}</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td><a href="">Edit</a></td>
           </tr>
         );
 }

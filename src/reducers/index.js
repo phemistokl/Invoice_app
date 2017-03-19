@@ -4,10 +4,12 @@ import { routerReducer as routing } from 'react-router-redux'
 import {
     FETCH_CUSTOMERS_REQUEST,
     FETCH_CUSTOMERS_SUCCESS,
+    FETCH_CREATE_CUSTOMER,
     CREATE_CUSTOMER,
+    DELETE_CUSTOMER,
     EDIT_CUSTOMER,
-    TOGGLE_MODAL,
-    DISMISS_MODAL
+    OPEN_MODAL,
+    TOGGLE_MODAL
 } from '../actions';
 
 const customers = ( state = { isFetching: false, customers: [] }, action) => {

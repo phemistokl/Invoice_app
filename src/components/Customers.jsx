@@ -25,25 +25,24 @@ export default class Customers extends Component {
         //this.handleNoteAdd = this.handleNoteAdd.bind(this);
     }
 
-    createCustomer() {
+    openModal() {
         this.props.toggleModal();
     }
 
     componentWillMount() {
         this.props.loadCustomers();
     }
-    //
-    // componentDidMount() {
+
+    // componentWillUpdate() {
     //     this.props.loadCustomers();
     // }
 
     render() {
-        //console.log(this.props.customers);
         return (
           <div>
-            <Modal />
+            { this.props.isOpen ? <Modal /> : null }
             <Row className="show-grid">
-              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button onClick={this.createCustomer.bind(this)}>Create</Button></Col>
+              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button onClick={this.openModal.bind(this)}>Create</Button></Col>
             </Row>
             <Table responsive>
                 <thead>
@@ -53,7 +52,6 @@ export default class Customers extends Component {
                     <th>Address</th>
                     <th>Phone</th>
                     <th>Edit</th>
-                    <th>Delete</th>
                   </tr>
                 </thead>
                 <TableGrid customers={this.props.customers} />
@@ -67,6 +65,7 @@ function mapStateToProps(state) {
   //console.log(state);
     return {
         customers: state.customers.customers,
-        loading: state.customers.isFetching
+        loading: state.customers.isFetching,
+        isOpen: state.modal.isOpen
     };
 }

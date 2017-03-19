@@ -9,12 +9,13 @@ import axios from 'axios';
     export function createCustomer(data) {
         return axios.post(`api/customers`, data);
     }
-    //
-    // export function deleteNote(noteId) {
-    //     return axios.delete(`${apiPrefix}/notes/${noteId}`);
-    // }
+
+    export function deleteCustomer(customerId) {
+        return axios.delete(`api/customers/customerId`);
+    }
 
     export default {
         listCustomers,
-        createCustomer
+        createCustomer,
+        deleteCustomer
     };
