@@ -12,6 +12,11 @@ import {
     CREATE_PRODUCT,
     SET_CURRENT_PRODUCT,
 
+    GET_ALL_INVOICES,
+    DELETE_INVOICE,
+    CREATE_INVOICE,
+    SET_CURRENT_INVOICE,
+
     OPEN_MODAL,
     TOGGLE_MODAL
 } from '../actions';
@@ -52,6 +57,24 @@ const products = ( state = { products: [], product: [] }, action) => {
   }
 };
 
+const invoices = ( state = { invoices: [], invoice: [] }, action) => {
+  switch (action.type) {
+    case DELETE_INVOICE:
+    case GET_ALL_INVOICES:
+      return {
+        ...state,
+        invoices: action.invoices
+      };
+    case SET_CURRENT_INVOICE:
+      return {
+        ...state,
+        invoice: action.invoice
+      };
+    default:
+      return state
+  }
+};
+
 const modal = ( state = { isOpen: false, newEntry: false }, action) => {
     switch(action.type) {
       case TOGGLE_MODAL:
@@ -59,12 +82,14 @@ const modal = ( state = { isOpen: false, newEntry: false }, action) => {
           ...state,
           isOpen: !state.isOpen
         };
+      case CREATE_INVOICE:
       case CREATE_PRODUCT:
       case CREATE_CUSTOMER:
         return {
           ...state,
           newEntry: true
         };
+      case SET_CURRENT_INVOICE:
       case SET_CURRENT_PRODUCT:
       case SET_CURRENT_CUSTOMER:
         return {
@@ -76,4 +101,4 @@ const modal = ( state = { isOpen: false, newEntry: false }, action) => {
     }
 }
 
-export default combineReducers({ customers, products, modal, routing });
+export default combineReducers({ customers, products, invoices, modal, routing });

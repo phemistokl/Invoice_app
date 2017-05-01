@@ -42,6 +42,27 @@ import axios from 'axios';
         return axios.delete(`api/products/${productId}`);
     }
 
+// INVOICES API
+    export function getInvoices() {
+        return axios.get(`api/invoices`);
+    }
+
+    export function saveNewInvoice(data) {
+        return axios.post(`api/invoices`, data);
+    }
+
+    export function currentInvoice(invoiceId) {
+        return axios.get(`api/invoices/${invoiceId}`);
+    }
+
+    export function updateInvoice(invoiceId, data) {
+        return axios.put(`api/invoices/${invoiceId}`, data);
+    }
+
+    export function deleteInvoice(invoiceId) {
+        return axios.delete(`api/invoices/${invoiceId}`);
+    }
+
 
 export default {
     getCustomers,
@@ -53,5 +74,10 @@ export default {
     saveNewProduct,
     currentProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getInvoices,
+    saveNewInvoice,
+    currentInvoice,
+    updateInvoice,
+    deleteInvoice
 };

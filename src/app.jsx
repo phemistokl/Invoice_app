@@ -7,8 +7,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import App from './components/App.jsx';
 import Customers from './components/Customers/Customers.jsx';
 import Products from './components/Products/Products.jsx';
-import Invoices from './components/Invoices.jsx';
-import InvoiceEdit from './components/InvoiceEdit.jsx';
+import Invoices from './components/Invoices/Invoices.jsx';
+import InvoiceEdit from './components/Invoices/InvoiceEdit.jsx';
 
 import store from './store';
 
