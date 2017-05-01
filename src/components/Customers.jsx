@@ -9,9 +9,9 @@ import Table from 'react-bootstrap/lib/Table';
 import TableGrid from './TableGrid.jsx';
 import Modal from './Modal.jsx';
 
-import { loadCustomers, toggleModal } from '../actions';
+import { loadCustomers, createCustomer, toggleModal } from '../actions';
 
-@connect(mapStateToProps, { loadCustomers, toggleModal })
+@connect(mapStateToProps, { loadCustomers, createCustomer, toggleModal })
 export default class Customers extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +25,8 @@ export default class Customers extends Component {
         //this.handleNoteAdd = this.handleNoteAdd.bind(this);
     }
 
-    openModal() {
+    createCustomer() {
+        this.props.createCustomer();
         this.props.toggleModal();
     }
 
@@ -33,16 +34,12 @@ export default class Customers extends Component {
         this.props.loadCustomers();
     }
 
-    // componentWillUpdate() {
-    //     this.props.loadCustomers();
-    // }
-
     render() {
         return (
           <div>
             { this.props.isOpen ? <Modal /> : null }
             <Row className="show-grid">
-              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button onClick={this.openModal.bind(this)}>Create</Button></Col>
+              <Col xs={12} sm={12} md={12} lg={12}><h1>Customer list</h1><Button onClick={this.createCustomer.bind(this)}>Create</Button></Col>
             </Row>
             <Table responsive>
                 <thead>
@@ -65,7 +62,6 @@ function mapStateToProps(state) {
   //console.log(state);
     return {
         customers: state.customers.customers,
-        loading: state.customers.isFetching,
         isOpen: state.modal.isOpen
     };
 }

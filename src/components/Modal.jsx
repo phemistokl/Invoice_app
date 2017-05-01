@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import Modal from 'react-bootstrap/lib/Modal';
 
-import { loadCustomers, createCustomer, toggleModal } from '../actions';
+import { loadCustomers, saveCustomer, editCustomer, updateCustomer, deleteCustomer, toggleModal } from '../actions';
 
-@connect(mapStateToModalProps, { loadCustomers, createCustomer, toggleModal })
+@connect(mapStateToModalProps, { loadCustomers, saveCustomer, editCustomer, updateCustomer, deleteCustomer, toggleModal })
 export default class Modal extends Component {
     constructor(props) {
         super(props);
@@ -22,29 +21,26 @@ export default class Modal extends Component {
             phone: ''
           });
         }
-
-        //this.handleNoteDelete = this.handleNoteDelete.bind(this);
-        //this.handleNoteAdd = this.handleNoteAdd.bind(this);
     }
 
     componentDidMount() {
-        $('#editRecipe').modal('show');
+        $('#editCustomer').modal('show');
     }
 
     closeModal() {
         // need to have component inside different this context
         let modalComponent = this;
-        $('#editRecipe').modal('hide');
+        $('#editCustomer').modal('hide');
         // Make sure bootstrap modal close finishes before
         // changing modal isOpen to false otherwise background gets stuck
-        $('#editRecipe').on('hidden.bs.modal', function () {
+        $('#editCustomer').on('hidden.bs.modal', function () {
           modalComponent.props.toggleModal();
         });
     }
 
     handleDelete() {
-        if (this.props.id && !this.props.modal.newEntry) {
-          this.props.actions.deleteRecipe(this.props.id);
+        if (this.props.id && !this.props.newEntry) {
+          this.props.deleteCustomer(this.props.id);
         }
         this.closeModal();
     }
@@ -56,16 +52,14 @@ export default class Modal extends Component {
           phone: this.state.phone
       };
 
-      this.props.createCustomer(customer);
 
-      //this.resetState();
-        // if (!this.props.modal.newEntry) {
-        //   this.props.actions.updateRecipe(recipe);
-        // }
-        // else {
-        //   // Save a new recipe
-        //   this.props.actions.saveNewRecipe(recipe);
-        // }
+        if (!this.props.newEntry) {
+          this.props.updateCustomer(this.props.id, customer);
+        }
+        else {
+          this.props.saveCustomer(customer);
+        }
+
       this.closeModal();
       this.props.loadCustomers();
     }
@@ -92,11 +86,12 @@ export default class Modal extends Component {
     }
 
     render() {
+      console.log(this.props.name);
       if (!this.props.isOpen) {
         this.closeModal();
       }
       return <div
-        id={"editRecipe"}
+        id={"editCustomer"}
         className="modal fade"
         data-backdrop="static"
         tabIndex="-1"
@@ -113,7 +108,7 @@ export default class Modal extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
                 {
-                  !this.props.id ?
+                  !this.props.newEntry ?
                   <h4 className="modal-title">Edit Customer</h4>
                   : <h4 className="modal-title">Create Customer</h4>
                 }
@@ -139,7 +134,7 @@ export default class Modal extends Component {
                   />
                 </div>
                 <div className="input-form-group">
-                  <label htmlFor="recipe-name">Customer Phone</label>
+                  <label htmlFor="customer-name">Customer Phone</label>
                   <input type="text"
                     onChange={this.handlePhoneChange.bind(this)}
                     id="customer-name"
@@ -151,7 +146,7 @@ export default class Modal extends Component {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-default"
+                  className="btn btn-default mystyle"
                   onClick={this.closeModal.bind(this)}
                 >
                     Cancel
@@ -178,13 +173,11 @@ export default class Modal extends Component {
 }
 
 function mapStateToModalProps(state) {
-  //console.log(state);
   return {
-    id: state.customers.customers.id,
-    newEntry: state.modal.newEntry,
-    name: state.customers.customers.name,
-    address: state.customers.customers.address,
-    phone: state.customers.customers.phone,
+    id: state.customers.customer.id,
+    name: state.customers.customer.name,
+    address: state.customers.customer.address,
+    phone: state.customers.customer.phone,
     isOpen: state.modal.isOpen,
     newEntry: state.modal.newEntry
   };

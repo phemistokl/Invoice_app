@@ -1,28 +1,34 @@
 import api from '../api';
 
-export const FETCH_CUSTOMERS_REQUEST = 'FETCH_CUSTOMERS_REQUEST';
-export const FETCH_CUSTOMERS_SUCCESS = 'FETCH_CUSTOMERS_SUCCESS';
-
-export const TOGGLE_MODAL = 'TOGGLE_MODAL';
-
+export const GET_ALL_CUSTOMERS = 'GET_ALL_CUSTOMERS';
+export const SET_CURRENT_CUSTOMER = 'SET_CURRENT_CUSTOMER';
+export const UPDATE_CUSTOMER = 'UPDATE_CUSTOMER';
 export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
-export const EDIT_CUSTOMER = 'EDIT_CUSTOMER';
+export const SAVE_NEW_CUSTOMER = 'SAVE_NEW_CUSTOMER';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 
-//export const SAVE_NEW_CUSTOMER = 'SAVE_NEW_CUSTOMER';
-
-
-export const fetchCustomersRequest = () => ({
-    type: FETCH_CUSTOMERS_REQUEST
+export const fetchGetAllCustomers = ({ data }) => ({
+    type: GET_ALL_CUSTOMERS,
+    customers: data
 });
 
-export const fetchCustomersSuccess = ({ data }) => ({
-    customers: data,
-    type: FETCH_CUSTOMERS_SUCCESS
+export const fetchSetCurrentCustomer = ({ data }) => ({
+    type: SET_CURRENT_CUSTOMER,
+    customer: data
+
 });
 
-export const fetchCreateCustomer = () => ({
+export const fetchUpdateCustomer = () => ({
+    type: UPDATE_CUSTOMER
+});
+
+export const  fetchCreateCustomer = () => ({
     type: CREATE_CUSTOMER
+});
+
+export const fetchSaveNewCustomer = () => ({
+    type: SAVE_NEW_CUSTOMER
 });
 
 export const fetchDeleteCustomer = () => ({
@@ -37,25 +43,35 @@ export const toggleModal = () => dispatch => {
     dispatch(fetchToggleModal());
 }
 
-export const loadCustomers = () => dispatch => {
-    dispatch(fetchCustomersRequest());
-
-    return api.listCustomers()
-    .then(data => dispatch(fetchCustomersSuccess(data)));
+export const createCustomer = () => dispatch => {
+    dispatch(fetchCreateCustomer());
 }
 
-export const createCustomer = (customer) => dispatch => {
-    dispatch(fetchCreateCustomer());
+export const currentCustomer = (customerId) => dispatch => {
+    return api.currentCustomer(customerId)
+    .then(data => dispatch(fetchSetCurrentCustomer(data)))
+    .then(() => dispatch(fetchToggleModal()));
+}
 
-    return api.createCustomer(customer)
-    .then(() => loadCustomers())
-    .catch(err => console.error(err));
+export const loadCustomers = () => dispatch => {
+    return api.getCustomers()
+    .then(data => dispatch(fetchGetAllCustomers(data)));
+}
+
+export const saveCustomer = (customer) => dispatch => {
+    dispatch(fetchSaveNewCustomer());
+    return api.saveNewCustomer(customer);
+}
+
+export const updateCustomer = (customerId, customer) => dispatch => {
+    dispatch(fetchUpdateCustomer());
+    return api.updateCustomer(customerId, customer)
+    .then(() => dispatch(loadCustomers()));
+
 }
 
 export const deleteCustomer = (customerId) => dispatch => {
     dispatch(fetchDeleteCustomer());
-
     return api.deleteCustomer(customerId)
-    .then(() => loadCustomers())
-    .catch(err => console.error(err));
+    .then(() => dispatch(loadCustomers()));
 }

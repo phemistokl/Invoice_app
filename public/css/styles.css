@@ -5,3 +5,9 @@ h1 {
 button.btn {
   margin-bottom: 16px;
 }
+button.mystyle {
+  margin-bottom: 0px;
+}
+.point {
+  cursor: pointer;
+}

@@ -2,28 +2,26 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux'
 
 import {
-    FETCH_CUSTOMERS_REQUEST,
-    FETCH_CUSTOMERS_SUCCESS,
-    FETCH_CREATE_CUSTOMER,
-    CREATE_CUSTOMER,
+    GET_ALL_CUSTOMERS,
     DELETE_CUSTOMER,
-    EDIT_CUSTOMER,
+    CREATE_CUSTOMER,
+    SET_CURRENT_CUSTOMER,
     OPEN_MODAL,
     TOGGLE_MODAL
 } from '../actions';
 
-const customers = ( state = { isFetching: false, customers: [] }, action) => {
+const customers = ( state = { customers: [], customer: [] }, action) => {
   switch (action.type) {
-    case FETCH_CUSTOMERS_REQUEST:
+    case DELETE_CUSTOMER:
+    case GET_ALL_CUSTOMERS:
       return {
         ...state,
-        isFetching: true
-      };
-    case FETCH_CUSTOMERS_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
         customers: action.customers
+      };
+    case SET_CURRENT_CUSTOMER:
+      return {
+        ...state,
+        customer: action.customer
       };
     default:
       return state
@@ -42,7 +40,7 @@ const modal = ( state = { isOpen: false, newEntry: false }, action) => {
           ...state,
           newEntry: true
         };
-      case EDIT_CUSTOMER:
+      case SET_CURRENT_CUSTOMER:
         return {
           ...state,
           newEntry: false

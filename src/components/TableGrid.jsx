@@ -8,7 +8,13 @@ export default props => {
     return (
         <tbody>
               {
-                  customers.map(customer => <TableRows key={customer.id} {...customer} />)
+                  customers.map(customer => <TableRows
+                     key={customer.id}
+                     id={customer.id}
+                     name={customer.name}
+                     address={customer.address}
+                     phone={customer.phone}
+                  />)
               }
         </tbody>
     );
