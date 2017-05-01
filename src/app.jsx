@@ -5,8 +5,8 @@ import { Router, Route, Redirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './components/App.jsx';
-import Customers from './components/Customers.jsx';
-import Products from './components/Products.jsx';
+import Customers from './components/Customers/Customers.jsx';
+import Products from './components/Products/Products.jsx';
 import Invoices from './components/Invoices.jsx';
 import InvoiceEdit from './components/InvoiceEdit.jsx';
 

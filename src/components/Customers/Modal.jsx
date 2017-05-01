@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { loadCustomers, saveCustomer, editCustomer, updateCustomer, deleteCustomer, toggleModal } from '../actions';
+import { loadCustomers, saveCustomer, editCustomer, updateCustomer, deleteCustomer, toggleModal } from '../../actions';
 
 @connect(mapStateToModalProps, { loadCustomers, saveCustomer, editCustomer, updateCustomer, deleteCustomer, toggleModal })
 export default class Modal extends Component {

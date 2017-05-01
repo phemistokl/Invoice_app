@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/lib/Table';
 import TableGrid from './TableGrid.jsx';
 import Modal from './Modal.jsx';
 
-import { loadCustomers, createCustomer, toggleModal } from '../actions';
+import { loadCustomers, createCustomer, toggleModal } from '../../actions';
 
 @connect(mapStateToProps, { loadCustomers, createCustomer, toggleModal })
 export default class Customers extends Component {
@@ -20,9 +20,6 @@ export default class Customers extends Component {
         this.state = {
             customers: []
         };
-
-        //this.handleNoteDelete = this.handleNoteDelete.bind(this);
-        //this.handleNoteAdd = this.handleNoteAdd.bind(this);
     }
 
     createCustomer() {
@@ -59,7 +56,6 @@ export default class Customers extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log(state);
     return {
         customers: state.customers.customers,
         isOpen: state.modal.isOpen

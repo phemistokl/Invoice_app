@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { editCustomer, currentCustomer, toggleModal } from '../actions';
+import { editCustomer, currentCustomer, toggleModal } from '../../actions';
 
 @connect(undefined, { editCustomer, currentCustomer, toggleModal })
 export default class TableRows extends Component {

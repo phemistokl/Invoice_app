@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// CUSTOMERS API
     export function getCustomers() {
         return axios.get(`api/customers`);
     }
@@ -20,10 +21,37 @@ import axios from 'axios';
         return axios.delete(`api/customers/${customerId}`);
     }
 
-    export default {
-        getCustomers,
-        saveNewCustomer,
-        currentCustomer,
-        updateCustomer,
-        deleteCustomer
-    };
+// PRODUCTS API
+    export function getProducts() {
+        return axios.get(`api/products`);
+    }
+
+    export function saveNewProduct(data) {
+        return axios.post(`api/products`, data);
+    }
+
+    export function currentProduct(productId) {
+        return axios.get(`api/products/${productId}`);
+    }
+
+    export function updateProduct(productId, data) {
+        return axios.put(`api/products/${productId}`, data);
+    }
+
+    export function deleteProduct(productId) {
+        return axios.delete(`api/products/${productId}`);
+    }
+
+
+export default {
+    getCustomers,
+    saveNewCustomer,
+    currentCustomer,
+    updateCustomer,
+    deleteCustomer,
+    getProducts,
+    saveNewProduct,
+    currentProduct,
+    updateProduct,
+    deleteProduct
+};
